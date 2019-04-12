@@ -8,7 +8,7 @@ export default class ViewPokemon extends Component {
     }
     render() {
         return(
-            <div>Nothing</div>
+            <div>View Pokemon</div>
         )
     }
 }

@@ -10,58 +10,35 @@ export default class ListPokemon extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pokemon: [], // This will hold my FULL list of Pokemon
-            filteredPokemon: [] // This will hold my Filtered list of Pokemon
-        };
+            pokemon_list: []
+        }
     }
 
-
-// Lets load up our current list once component mounted
-    componentDidMount()
-    {
-        this.fetchPokemon();
-        console.log("Response = " + this.state.pokemon);
+    componentDidMount() {
+        this.loadData();
     }
 
-// Grab those Pokemon from the backend web service
-    fetchPokemon()
-    {
-        console.log(`Fetching Pokemon: ${this.pokedex_uri}`);
+    //fetch pokemon_list
+    loadData = () => {
         fetch(this.pokedex_uri)
-            .then(response => {
-                if (!response.ok) {
-                    throw Error("Failed connection to the Pokedex API")
-                }
-                console.log(response);
-                return response
-            })
-            .then(response => response.json())
-            .then(response => {
-                this.setState({
-                    requestFailed: false
-                });
-                // We only keep the first 800 Pokemon we have pictures for. Remove the MAX call to catch em all
-                // We also reset the filtered list of pokemon
-                this.setState({
-                    pokemon: response.results,
-                    filteredPokemon: response.results
-                })
-            })
-    }
+            .then(data => data.json())
+            .then(jsonData => this.setState({pokemon_list: jsonData.results}))
+    };
 
-
-    render()
-    {
+    //pass pokemon_list to StylePoke
+    render() {
         return (
-            <div>
-            {this.state.filteredPokemon.map((pokemon, index) => {
-                let parts = pokemon.url.split('/');
-                let img =   parts[parts.length-1]+".png";
-                    return (
-                        <Pokemon pokemon_name = {pokemon.name} pokemon_img={img}/>
-                    );
-                })}
-            </div>
-        )
+            this.state.pokemon_list.map((pokemon) => {
+                // FIXME: Should really make a second request to get the image from web service
+                let pokemon_url_parts = pokemon.url.split('/');
+                let pokemon_id = pokemon_url_parts[6];
+                return (
+                    <div key={pokemon.name}>
+                        <Pokemon pokemon={pokemon.name} image={'/img/' + pokemon_id + '.png'} pokedex_id = {pokemon_id}/>
+                    </div>
+                )
+            }))
+
     }
 }
+

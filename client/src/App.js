@@ -11,9 +11,7 @@ class App extends Component {
             <Router>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark static-top">
                     <div className="container">
-                        <a className="navbar-brand" href="#">
-                            <img src="/images/header.png?text=Logo" width={500} alt=""/>
-                        </a>
+
                         <button className="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                                 aria-label="Toggle navigation">
@@ -30,8 +28,9 @@ class App extends Component {
                         </div>
                     </div>
                 </nav>
-
-                <Route path="/" exact component={ListPokemon}/>
+                <div className="grid-container grid-container--fill">
+                    <Route path="/" exact component={ListPokemon}/>
+                </div>
                 <Route path="/:id" component={ViewPokemon}/>
             </Router>
 
