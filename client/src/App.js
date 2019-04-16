@@ -30,8 +30,9 @@ class App extends Component {
                 </nav>
                 <div className="grid-container grid-container--fill">
                     <Route path="/" exact component={ListPokemon}/>
+                    <Route path="/:id" component={ViewPokemon}/>
                 </div>
-                <Route path="/:id" component={ViewPokemon}/>
+
             </Router>
 
         );
