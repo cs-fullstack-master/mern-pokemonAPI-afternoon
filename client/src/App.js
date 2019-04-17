@@ -9,10 +9,11 @@ class App extends Component {
     render() {
         return (
             <Router>
+                {/*Build a simple Nav bar*/}
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                     <Link to="/" className="navbar-brand">Pokedex</Link>
-
                 </nav>
+                {/*TODO: Fix this lousy grid*/}
                 <div className="grid-container grid-container--fill">
                     <Route path="/" exact component={ListPokemon}/>
                     <Route path="/:id" component={ViewPokemon}/>

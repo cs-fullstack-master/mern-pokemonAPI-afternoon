@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// TODO: Never got around to using this
 export default class MainHeader extends Component {
     constructor(props) {
         super(props);

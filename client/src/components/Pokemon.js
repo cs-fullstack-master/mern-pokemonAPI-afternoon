@@ -2,10 +2,8 @@ import React, {Component} from 'react';
 
 export default class Pokemon extends Component {
 
-
-
+// Renders a Pokemon as a grid element
     render() {
-
         return (
             <div className="pokemon grid-element">
                 <h2>{this.props.pokemon}</h2>
