@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import '../App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Redirect} from "react-router-dom";
 
 export default class ViewPokemon extends Component {
-    pokedex_uri = 'https://pokeapi.co/api/v2/pokemon/';
+    pokedex_uri = 'https://pokeapi.co/api/v2/pokemon/'; // Here's the base URI for Pokemon details
 
+    // Hang onto a few properties for display
     constructor(props) {
         super(props);
         this.state = {
@@ -13,10 +13,10 @@ export default class ViewPokemon extends Component {
             pokemon_abilities: [],
             pokemon_moves: [],
             pokemon_sprites: [],
-            toHomePage: false,
         };
     }
 
+    // Retrieve the selected Pokemon's details
     componentDidMount() {
         fetch(this.pokedex_uri + this.props.match.params.id)
             .then(data => data.json())
@@ -34,20 +34,15 @@ export default class ViewPokemon extends Component {
 
     }
 
-
+// Renders a rather ugly Pokemon details
     render() {
-        if (this.state.toHomePage === true) {
-            return <Redirect to={'/'}/>
-        }
-
+// Pokemon abilities
         let abilities = this.state.pokemon_abilities ? this.state.pokemon_abilities.map((item, key) =>
             <li key={item.ability.url}>{item.ability.name}</li>) : [];
-
+// Pokemon Moves
         let moves = this.state.pokemon_moves ? this.state.pokemon_moves.map((item, key) =>
             <li key={item.move.url}>{item.move.name}</li>) : [];
 
-
-        console.log(this.state.pokemon_sprites);
 
         return (
             <div className="grid-container">
@@ -60,11 +55,10 @@ export default class ViewPokemon extends Component {
                     </ul>
                 </div>
                 <div className="grid-images">
-                    {/*{sprites}*/}
+                    {/*{FIXME: Only getting some of the images}*/}
                     <img src={this.state.pokemon_sprites.front_default} alt="Pokemon"/>
                     <img src={this.state.pokemon_sprites.back_default} alt="Pokemon"/>
                     <img src={this.state.pokemon_sprites.front_shiny} alt="Pokemon"/>
-
                 </div>
             </div>
         )
